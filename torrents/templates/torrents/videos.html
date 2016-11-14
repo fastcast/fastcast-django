@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% get_static_prefix as MEDIA_URL %}
+
+{% block title %}Fastcast | Videos{% endblock %}
+
+{% block nav %}
+<li><a href="/">Home</a></li>
+<li class="active"><a href="/videos">Videos</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/contact">Contact</a></li>
+<li><a href="http://blog.fastcast.nz">Blog</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#recent">Recent</a></li>
+    <li><a data-toggle="tab" href="#popular">Popular</a></li>
+    <li><a data-toggle="tab" href="#following">Following</a></li>
+    <li><a data-toggle="tab" href="#explore">Explore</a></li>
+  </ul>
+  <div class="row videos">
+    <div class="tab-content">
+      <div id="recent" class="tab-pane fade in active">
+        <div class="container">
+          <h2>Recent videos</h2>
+          <p>The most recent videos come first.</p>
+          {% if latest_torrent_list %}
+          {% for torrent in latest_torrent_list %}
+          <div class="col-xs-6 col-lg-4">
+            <a href="/videos/{{ torrent.id }}/">
+              <img src="{% get_media_prefix %}{{ torrent.image }}" class="img-responsive img-rounded" alt="{{ torrent.name }}">
+              <h1 class="lead">{{ torrent.name }}</h1>
+            </a>
+          </div>
+          {% endfor %}
+          {% else %}
+          <p>No recent videos are available</p>
+          {% endif %}
+        </div>
+      </div>
+      <div id="popular" class="tab-pane fade">
+        <div class="container">
+          <h2>Popular videos</h2>
+          <p>Videos on the networks with the most peers.</p>
+          <h3>Coming soon...</h3>
+        </div>
+      </div>
+      <div id="following" class="tab-pane fade">
+        <div class="container">
+          <h2>Videos by users you are following</h2>
+          <p>Find out what the people you follow have been casting.</p>
+          <h3>Coming soon...</h3>
+        </div>
+      </div>
+      <div id="explore" class="tab-pane fade">
+        <div class="container">
+          <h2>Videos that the users you follow have liked</h2>
+          <p>Find new content that you love.</p>
+          <h3>Coming soon...</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

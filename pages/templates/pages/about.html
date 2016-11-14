@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load markdown %}
+
+{% block title %}Fastcast | About{% endblock %}
+
+{% block nav %}
+<li><a href="/">Home</a></li>
+<li><a href="/videos">Videos</a></li>
+<li class="active"><a href="/about">About</a></li>
+<li><a href="/contact">Contact</a></li>
+<li><a href="http://blog.fastcast.nz">Blog</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row row-offcanvas row-offcanvas-right">
+    <div class="col-xs-12 col-sm-9">
+      <p class="pull-right visible-xs">
+        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle sidebar</button>
+      </p>
+      <div class="jumbotron">
+        {% if piece_container %}
+        {% for piece in piece_container %}
+        <h1>{{ piece.title }}</h1>
+        {{ piece.content|mark_down }}
+        {% if piece.button %}<p><a class="btn btn-default" href="{{ piece.url }}" role="button">{{ piece.button }}</a></p>{% endif %}
+        {% endfor %}
+        {% else %}
+        <p>Our marketing team has left :(</p>
+        <p>Try adding a piece for page 'about' and section 'container' in the admin site</p>
+        {% endif %}
+      </div>
+    </div><!--/.col-xs-12.col-sm-9-->
+
+    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+      <p><b>Links</b></p>
+      <div class="list-group">
+        <a href="http://help.bittorrent.com/customer/portal/articles/164636-what-is-the-bittorrent-protocol-" class="list-group-item">What is the BitTorrent Protocol?</a>
+        <a href="http://wiki.vuze.com/w/Legal_torrent_sites" class="list-group-item">Legal torrent sites</a>
+        <a href="http://webtorrent.io" class="list-group-item">WebTorrent</a>
+        <a href="https://www.archive.org" class="list-group-item">Internet Archive</a>
+      </div>
+      <a class="twitter-timeline" href="https://twitter.com/fastcastnz" data-widget-id="468623837718790144">Tweets by @fastcastnz</a>
+    </div><!--/.sidebar-offcanvas-->
+  </div><!--/row-->
+
+</div><!--/.container-->
+{% endblock %}

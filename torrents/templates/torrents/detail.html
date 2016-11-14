@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load markdown %}
+{% load static %}
+{% get_static_prefix as MEDIA_URL %}
+
+{% block title %}Fastcast | {{ torrent }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row videos">
+    <div id="video" class="col-xs-12 col-md-9">
+      <div id="player"></div>
+      <p class="pull-right visible-md visible-lg">
+        <button type="button" class="btn btn-primary btn-xs" data-toggle="videoSize">Toggle video size</button>
+      </p>
+      <div class="log"></div>
+      <div class="speed"></div>
+      <div id="download" class="hidden">
+        <h3>Download progress</h3>
+        <div class="progress">
+          <div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="caption">
+        <h3>{{ torrent.name }} <small>{{ torrent.user }}</small></h3>
+        {{ torrent.description|mark_down }}
+      </div>
+    </div>
+    {% if similar_torrent_list %}
+    {% for torrent in similar_torrent_list %}
+    <div class="col-xs-6 col-sm-4 col-md-3">
+      <a href="/videos/{{ torrent.id }}/">
+        <img src="{% get_media_prefix %}{{ torrent.image }}" class="img-responsive img-rounded" alt="Responsive image">
+        <div class="caption">
+          <h5>{{ torrent.name }}</h5>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No torrents are available.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block torrent_name %}{{ torrent.torrent_file }}{% endblock %}

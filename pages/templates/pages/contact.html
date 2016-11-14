@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load markdown %}
+
+{% block title %}Fastcast | Contact{% endblock %}
+
+{% block nav %}
+<li><a href="/">Home</a></li>
+<li><a href="/videos">Videos</a></li>
+<li><a href="/about">About</a></li>
+<li class="active"><a href="/contact">Contact</a></li>
+<li><a href="http://blog.fastcast.nz">Blog</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="jumbotron">
+    {% if piece_container %}
+    {% for piece in piece_container %}
+    <h1>{{ piece.title }}</h1>
+    {{ piece.content|mark_down }}
+    {% if piece.button %}<p><a class="btn btn-default" href="{{ piece.url }}" role="button">{{ piece.button }}</a></p>{% endif %}
+    {% endfor %}
+    {% else %}
+    <p>Our marketing team has left :(</p>
+    <p>Try adding a piece for page 'contact' and section 'container' in the admin site</p>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
+
+{% block links %}
+
+{% endblock %}
